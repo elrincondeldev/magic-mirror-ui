@@ -1,0 +1,16 @@
+app = "magic-mirror-ui"
+primary_region = "mad"  # Madrid — cambia según tu región
+
+[build]
+  dockerfile = "Dockerfile"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = false   # no apagar — el mirror necesita conexión constante
+  auto_start_machines = true
+
+[[vm]]
+  memory = "256mb"
+  cpu_kind = "shared"
+  cpus = 1
