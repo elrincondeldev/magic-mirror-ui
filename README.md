@@ -1,5 +1,7 @@
 # Magic Mirror UI
 
+chromium-browser --kiosk --noerrdialogs --disable-infobars http://192.168.1.207:3000/mirror
+
 Aplicación web para un espejo inteligente (Magic Mirror) en Raspberry Pi 4B.
 
 - **`/mirror`** — pantalla del espejo (Chromium en modo kiosk)
@@ -32,12 +34,12 @@ npm install
 cp .env.local.example .env.local
 ```
 
-| Variable | Descripción | Por defecto |
-|---|---|---|
+| Variable                      | Descripción               | Por defecto                     |
+| ----------------------------- | ------------------------- | ------------------------------- |
 | `NEXT_PUBLIC_WEATHER_API_KEY` | API key de OpenWeatherMap | Sin key → usa Open-Meteo gratis |
-| `NEXT_PUBLIC_WEATHER_CITY` | Ciudad inicial del clima | `Madrid,ES` |
-| `HOST` | Interfaz de red | `0.0.0.0` |
-| `PORT` | Puerto | `3000` |
+| `NEXT_PUBLIC_WEATHER_CITY`    | Ciudad inicial del clima  | `Madrid,ES`                     |
+| `HOST`                        | Interfaz de red           | `0.0.0.0`                       |
+| `PORT`                        | Puerto                    | `3000`                          |
 
 > Sin API key la app funciona igualmente usando Open-Meteo (gratuito, sin registro).
 
@@ -120,11 +122,11 @@ Para saber la IP de la RPi: `hostname -I`
 
 ### Consumo de recursos estimado
 
-| Proceso | RAM | CPU (idle) |
-|---|---|---|
-| Node.js (Next.js prod) | ~120 MB | < 1% |
-| Chromium kiosk | ~350 MB | 2–5% |
-| **Total** | **~470 MB** | **~5%** |
+| Proceso                | RAM         | CPU (idle) |
+| ---------------------- | ----------- | ---------- |
+| Node.js (Next.js prod) | ~120 MB     | < 1%       |
+| Chromium kiosk         | ~350 MB     | 2–5%       |
+| **Total**              | **~470 MB** | **~5%**    |
 
 > Con 2 GB+ de RAM no hay problema. Nunca usar `npm run dev` en la RPi — consume el doble.
 
@@ -205,19 +207,19 @@ Configuración ya incluida en `fly.toml`. Región por defecto: `mad` (Madrid).
 
 ### Eventos Socket.io
 
-| Evento | Dirección | Payload |
-|---|---|---|
-| `mirror:state` | Servidor → clientes | `MirrorState` completo |
-| `mirror:update` | Cliente → servidor | Patch parcial de `MirrorState` |
+| Evento          | Dirección           | Payload                        |
+| --------------- | ------------------- | ------------------------------ |
+| `mirror:state`  | Servidor → clientes | `MirrorState` completo         |
+| `mirror:update` | Cliente → servidor  | Patch parcial de `MirrorState` |
 
 ### MirrorState
 
 ```typescript
 {
-  mode: 'dashboard' | 'youtube'
-  youtubeId: string | null
-  message: string
-  weatherCity: string   // ej. "Madrid,ES"
+  mode: "dashboard" | "youtube";
+  youtubeId: string | null;
+  message: string;
+  weatherCity: string; // ej. "Madrid,ES"
 }
 ```
 
